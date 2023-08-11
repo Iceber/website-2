@@ -7,7 +7,7 @@ weight: 10
 
 用户通过创建 `ClusterImportPolicy` 来自动发现多云平台中纳管的集群，并将这些集群自动同步为 `PediaCluster`，用户不需要根据纳管的集群来手动去维护 `PediaCluster` 了。
 
-我们在 [Clusterpedia 仓库](https://github.com/clusterpedia-io/clusterpedia/tree/main/deploy/clusterimportpolicy) 中维护了各个多云平台的 `ClusterImportPolicy`。
+我们在 [Clusterpedia 仓库](https://github.com/clusterpedia-io/clusterpedia/tree/main/kustomize/clusterimportpolicy) 中维护了各个多云平台的 `ClusterImportPolicy`。
 **大家也提交用于对接其他多云平台的 `ClusterImportPolicy`。**
 
 用户在[安装 Clusterpedia](../../installation) 后，创建合适的 `ClusterImportPolicy` 即可，用户也可以根据自己的需求来[创建新的 `ClusterImportPolicy`](#新建-clusterimportpolicy)
@@ -17,7 +17,7 @@ weight: 10
 
 创建用于对接 Cluster API 平台的 `ClusterImportPolicy`。
 ```bash
-$ kubectl applyf -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/cluster_api.yaml
+$ kubectl applyf -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/cluster_api.yaml
 $ kubectl get clusterimportpolicy
 NAME          AGE
 cluster-api   4d19h
@@ -42,7 +42,7 @@ default-capi-quickstart-2   True    v1.24.2
 ```
 [PediaCluster](../../concepts/pediacluster) 会根据 Cluster 自动创建，并且当 Cluster 的 kubeconfig 发生变动时会自动更新 [PediaCluster](../../concepts/pediacluster).
 
-新建一个 Cluster 资源时，Clusterpedia 根据 [Cluster API ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/deploy/clusterimportpolicy/cluster_api.yaml) 等到 ControlPlaneInitialized 为 True 时才会自动创建 PediaCluster，可以通过 `kubectl get kubeadmcontrolplane` 来查看集群的初始化状态
+新建一个 Cluster 资源时，Clusterpedia 根据 [Cluster API ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/kustomize/clusterimportpolicy/cluster_api.yaml) 等到 ControlPlaneInitialized 为 True 时才会自动创建 PediaCluster，可以通过 `kubectl get kubeadmcontrolplane` 来查看集群的初始化状态
 ```bash
 NAME                    CLUSTER           INITIALIZED   API SERVER AVAILABLE   REPLICAS   READY   UPDATED   UNAVAILABLE   AGE   VERSION
 capi-quickstart-2xcsz   capi-quickstart   true                                 1                  1         1             86s   v1.24.2
@@ -65,7 +65,7 @@ default-capi-quickstart     capi-quickstart-md-0-9tw2g-b8b4f46cf-gggvq      NotR
 
 创建用于对接 Karmada 平台的 `ClusterImportPolicy`。
 ```bash
-$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/karmada.yaml
+$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/karmada.yaml
 $ kubectl get clusterimportpolicy
 NAME      AGE
 karmada   7d5h
@@ -98,7 +98,7 @@ karmada clusterimportpolicy 要求 karmada 集群为 Push 模式，并且处于 
 ## VCluster ClusterImportPolicy
 创建用于自动发现 [VCluster](https://github.com/loft-sh/vcluster) 的 `ClusterImportPolicy`。
 ```bash
-$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/vcluster.yaml
+$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/vcluster.yaml
 $ kubectl get clusterimportpolicy
 NAME      AGE
 vclsuter  5h
@@ -174,7 +174,7 @@ vc-default-vcluster-1                kube-system       Active   4m24s
 vc-caiwei-vcluster-caiwei-vcluster   kube-system       Active   20d
 ```
 
-Clusterpedia 会自动发现宿主集群内的虚拟集群（VCluster），并根据 [VCluster ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/deploy/clusterimportpolicy/vcluster.yaml) 创建相应的 [PediaCluster](../../concepts/pediacluster)，用户可以直接访问 Clusterpedia 来检索资源
+Clusterpedia 会自动发现宿主集群内的虚拟集群（VCluster），并根据 [VCluster ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/kustomize/clusterimportpolicy/vcluster.yaml) 创建相应的 [PediaCluster](../../concepts/pediacluster)，用户可以直接访问 Clusterpedia 来检索资源
 ```bash
 $ kubectl get pediaclusterlifecycle
 NAME                                 AGE
@@ -190,7 +190,7 @@ vc-default-vcluster-2                True    v1.23.5+k3s1   https://vcluster-2.d
 ```
 
 ## 新建 ClusterImportPolicy
-如果 [Clusterpedia 仓库](https://github.com/clusterpedia-io/clusterpedia/tree/main/deploy/clusterimportpolicy) 中没有维护某个平台的 ClusterImportPolicy，那么我们可以新建 ClusterImportPolicy
+如果 [Clusterpedia 仓库](https://github.com/clusterpedia-io/clusterpedia/tree/main/kustomize/clusterimportpolicy) 中没有维护某个平台的 ClusterImportPolicy，那么我们可以新建 ClusterImportPolicy
 
 **关于 ClusterImportPolicy 原理和字段的详细描述可以参考 [集群自动接入策略](../../concepts/cluster-import-policy)**
 

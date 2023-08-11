@@ -8,7 +8,7 @@ After 0.4.0, Clusterpedia provides a more friendly way to interface to multi-clo
 Users can create `ClusterImportPolicy` to automatically discover managed clusters in the multi-cloud platform and automatically synchronize them as `PediaCluster`,
 so you don't need to maintain `PediaCluster` manually based on the managed clusters.
 
-We maintain `PediaCluster` for each multi-cloud platform in the [Clusterpedia repository](https://github.com/clusterpedia-io/clusterpedia/tree/main/deploy/clusterimportpolicy). ClusterImportPolicy` for each multi-cloud platform.
+We maintain `PediaCluster` for each multi-cloud platform in the [Clusterpedia repository](https://github.com/clusterpedia-io/clusterpedia/tree/main/kustomize/clusterimportpolicy). ClusterImportPolicy` for each multi-cloud platform.
 **People also submit ClusterImportPolicy to Clusterpedia for interfacing to other multi-cloud platforms.**
 
 After [installing Clusterpedia](../../installation), you can create the appropriate `ClusterImportPolicy`,
@@ -19,7 +19,7 @@ Users can refer to [Cluster API Quick Start](https://cluster-api.sigs.k8s.io/use
 
 Create `ClusterImportPolicy` for interfacing to the ClusterAPI platform.
 ```bash
-$ kubectl applyf -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/cluster_api.yaml
+$ kubectl applyf -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/cluster_api.yaml
 $ kubectl get clusterimportpolicy
 NAME          AGE
 cluster-api   4d19h
@@ -44,7 +44,7 @@ default-capi-quickstart-2   True    v1.24.2
 ```
 [PediaCluster](../../concepts/pediacluster) is automatically created based on the Cluster, and the kubeconfig of [PediaCluster](../../concepts/pediacluster) is automatically updated when the kubeconfig of the Cluster changes.
 
-When creating a new Cluster, Clusterpedia automatically creates a PediaCluster when **ControlPlaneInitialized** is True according to the [Cluster API ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/deploy/clusterimportpolicy/cluster_api.yaml),
+When creating a new Cluster, Clusterpedia automatically creates a PediaCluster when **ControlPlaneInitialized** is True according to the [Cluster API ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/kustomize/clusterimportpolicy/cluster_api.yaml),
 and you can check the initialization status of the cluster by using `kubectl get kubeadmcontrolplane`
 ```bash
 NAME                    CLUSTER           INITIALIZED   API SERVER AVAILABLE   REPLICAS   READY   UPDATED   UNAVAILABLE   AGE   VERSION
@@ -68,7 +68,7 @@ default-capi-quickstart     capi-quickstart-md-0-9tw2g-b8b4f46cf-gggvq      NotR
 
 Create `ClusterImportPolicy` for interfacing to the Karmada platform.
 ```bash
-$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/karmada.yaml
+$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/karmada.yaml
 $ kubectl get clusterimportpolicy
 NAME      AGE
 karmada   7d5h
@@ -102,7 +102,7 @@ so the *karmada-member-1* pediacluster resource is created for the *member-1* cl
 ## VCluster ClusterImportPolicy
 Create the `ClusterImportPolicy` for auto-discovery of [VCluster](https://github.com/loft-sh/vcluster).
 ```bash
-$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/deploy/clusterimportpolicy/vcluster.yaml
+$ kubectl create -f https://raw.githubusercontent.com/clusterpedia-io/clusterpedia/main/kustomize/clusterimportpolicy/vcluster.yaml
 $ kubectl get clusterimportpolicy
 NAME      AGE
 vclsuter  5h
@@ -180,7 +180,7 @@ vc-default-vcluster-1                kube-system       Active   4m24s
 vc-caiwei-vcluster-caiwei-vcluster   kube-system       Active   20d
 ```
 
-Clusterpedia will automatically discover the virtual clusters(VClusters) within the host cluster and create the corresponding [PediaCluster](../../concepts/pediacluster) according to the [VCluster ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/deploy/clusterimportpolicy/vcluster.yaml),
+Clusterpedia will automatically discover the virtual clusters(VClusters) within the host cluster and create the corresponding [PediaCluster](../../concepts/pediacluster) according to the [VCluster ClusterImportPolicy](https://github.com/clusterpedia-io/clusterpedia/blob/main/kustomize/clusterimportpolicy/vcluster.yaml),
 and users can access Clusterpedia directly to retrieve resources
 ```bash
 $ kubectl get pediaclusterlifecycle
@@ -197,7 +197,7 @@ vc-default-vcluster-2                True    v1.23.5+k3s1   https://vcluster-2.d
 ```
 
 ## New ClusterImportPolicy
-If the [Clusterpedia repository](https://github.com/clusterpedia-io/clusterpedia/tree/main/deploy/clusterimportpolicy) does not maintain a ClusterImportPolicy for a platform, then we can create a new ClusterImportPolicy
+If the [Clusterpedia repository](https://github.com/clusterpedia-io/clusterpedia/tree/main/kustomize/clusterimportpolicy) does not maintain a ClusterImportPolicy for a platform, then we can create a new ClusterImportPolicy
 
 **A detailed description of the `ClusterImportPolicy` principles and fields can be found in the [Cluster Auto Import Policy](../../concepts/cluster-import-policy)**
 
